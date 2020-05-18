@@ -8,3 +8,6 @@
 out
 gen
 
+将删除 chap02-intro/src/test/
+将删除 chap02-intro/target/
+将删除 target/

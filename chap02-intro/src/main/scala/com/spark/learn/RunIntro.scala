@@ -3,20 +3,6 @@ package com.spark.learn
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.{Row, SparkSession}
 
-case class MatchData(
-       id_1: Int,
-       id_2: Int,
-       cmp_fname_c1: Option[Double],
-       cmp_fname_c2: Option[Double],
-       cmp_lname_c1: Option[Double],
-       cmp_lname_c2: Option[Double],
-       cmp_sex: Option[Int],
-       cmp_bd: Option[Int],
-       cmp_bm: Option[Int],
-       cmp_by: Option[Int],
-       cmp_plz: Option[Int],
-       is_match: Boolean
-)
 
 object RunIntro {
   def main(args: Array[String]): Unit = {
@@ -41,6 +27,12 @@ object RunIntro {
     // Scala匿名函数
     head.filter(x => !isHeader(x))
     head.filter(!isHeader(_))
+    // 使用DataFrameReader API读取文件数据
+    val jsonDf_1 = spark.read.format("json").load("file.json")
+    val josnDf_2 = spark.read.json("file.json")
+    // DataFrameWriter API
+    val jsonWriter_1 = jsonDf_1.write.json("file.json")
+    val jsonWriter_2 = jsonDf_1.write.format("json").save("file.json")
   }
   
   def isHeader(line:String) = line.contains("id_1")
